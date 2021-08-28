@@ -1,11 +1,11 @@
 import Header from './components/Header/header';
-import './App.css';
-
-function App() {
+import Dashboard from './components/Dashboard/dashboard';
+const App = () => {
   return (
-    <div className="App">
+    <main>
       <Header/>
-    </div>
+      <Dashboard/>
+    </main>
   );
 }
 

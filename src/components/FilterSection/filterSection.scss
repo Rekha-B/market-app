@@ -1,0 +1,22 @@
+@import "../../styles/colors.scss";
+ol li {
+  list-style-type: none;
+}
+section {
+  margin-left: 104px;
+  margin-top: 40.88px;
+
+  h2 {
+    font-family: "OpenSans-SemiBold";
+    font-size: 13px;
+    line-height: 18px;
+    color: $light_grey_color;
+  }
+
+  .card {
+    width:296px;
+    height:244px;
+    background: $white_color;
+    margin-top:12px;
+  }
+}

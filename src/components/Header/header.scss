@@ -7,15 +7,17 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
+    img {
+        width: 141.25px;
+        height: 40.32px;
+    }
+
+    #CartCount {
+        background: $dark_blue;
+        width: 129px;
+        height: inherit;
+        position: absolute;
+        right: 104px;
+      }
 }
-header img {
-  width: 141.25px;
-  height: 40.32px;
-}
-#CartCount {
-  background: $dark_blue;
-  width: 129px;
-  height: inherit;
-  position: absolute;
-  right: 104px;
-}
+

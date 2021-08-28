@@ -8,6 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background:#FAFAFA;
 }
 
 code {
@@ -15,3 +16,10 @@ code {
     monospace;
 }
 
+@font-face {
+  font-display: block;
+  font-family: 'OpenSans-SemiBold';
+  font-weight: 700;
+  src: local('OpenSans-SemiBold'),
+    url(../src/assets/fonts/Open_Sans/OpenSans-Bold.ttf) format('opentype');
+}
