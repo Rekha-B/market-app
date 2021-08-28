@@ -1,0 +1,1 @@
+export const PRODUCTS_URL="http://localhost:8000/items"

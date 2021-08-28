@@ -65,7 +65,7 @@ const FilterSection = ({ title, data, type }) => {
   };
 
   return (
-    <section>
+    <section id="filter">
       <h2>{title}</h2>
       <div className="card">{renderList()}</div>
     </section>

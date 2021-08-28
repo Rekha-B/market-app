@@ -1,4 +1,13 @@
-section {
+@import "../../styles/colors.scss";
+section#products {
     margin-left: 16px;
    margin-top: 40.88px;
+   width:608px;
+
+   h2 {
+        font-family: "OpenSans-SemiBold";
+        font-size: 13px;
+        line-height: 18px;
+        color: $light_grey_color;
+      }
 }
