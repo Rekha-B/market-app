@@ -7,18 +7,20 @@ export const getProducts = () => (dispatch) => {
     .then((res) => res.json())
     .then(async(data) => {
       data = await derivedData(data);
-      console.log('data : ', data);
+      console.log('Retrieve Products: ', data);
       dispatch({ type: types.GET_PRODUCTS , payload: data });
     });
 };
 
 const derivedData = async (data) => {
-   const brands = new Set([...data.filter(manufacturer => !brands.includes(manufacturer))]);
-   const types = new Set([...data.filter(itemType => !types.includes(itemType))]);
-   const tags = new Set([...data.filter(tags => [...tags])]);
-   return {
+  let brands = [...new Set(data.map(({ manufacturer }) => manufacturer))];
+  let types = [...new Set(data.map(({ itemType }) => itemType))];
+  let tagsData = data.map(({ tags }) => tags);
+  let tags = [...new Set(tagsData.reduce((acc, item) => acc.concat(...item) ,[]))];
+  return {
        brands,
        tags,
-       types
+       types,
+       products : data
    };
 }

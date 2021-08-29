@@ -1,15 +1,15 @@
-const initialState = {
-    products:[],
-    tags : [],
-    brands : []
+import * as types from '../constants/actionTypes';
+ const initialState = {
+    data : {}
  }
 
-export default function (state = initialState, action){
+export const productsReducer =  (state = initialState, action) => {
     switch(action.type){
-        case GET_PRODUCTS:
+        case types.GET_PRODUCTS:
+            console.log('Inside Reducer : ', action.payload)
             return {
                 ...state,
-                products: payload,
+                data: action.payload,
             }
         default:
                 return state;

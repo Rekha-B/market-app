@@ -1,7 +1,7 @@
 const initialState = {
   cartTotal: 0
 };
-const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
 switch(action.type) {
   // case ADD_ONE:
   //   return {
@@ -11,4 +11,3 @@ switch(action.type) {
     return state;
   }
 }
-export default cartReducer;
