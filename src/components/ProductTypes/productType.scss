@@ -1,0 +1,26 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
+ul {
+  display: flex;
+  margin-top:16px;
+  li {
+    width: 60px;
+    height: 30px;
+    padding: 6px 16px;
+    background: $white_blue_color;
+    border-radius: 2px;
+    color: $blue_color;
+    font-size: $font_size_13;
+    line-height: $line_height_18;
+  }
+
+  li:not(:first-child) {
+    margin-left: 8px;
+  }
+  li.selected {
+      background: $blue_color;
+      color:$white_blue_color
+  }
+}

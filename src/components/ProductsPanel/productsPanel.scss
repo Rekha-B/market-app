@@ -6,11 +6,13 @@ section#products {
     margin-left: 16px;
    margin-top: 40.88px;
    width:608px;
+  
 
    h2 {
-        font-family: "OpenSans-SemiBold";
+        font-family: "OpenSans-Regular";
         font-size: $font_size_13;
         line-height: $line_height_18;
         color: $light_grey_color;
+        margin:0
       }
 }

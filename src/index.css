@@ -30,3 +30,7 @@ code {
   src: local('OpenSans-Regular'),
     url(../src/assets/fonts/Open_Sans/OpenSans-Regular.ttf) format('opentype');
 }
+ul, ol {
+ list-style-type: none;
+ padding: 0;
+}

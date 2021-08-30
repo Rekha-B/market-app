@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import FilterSection from '../FilterSection/filterSection';
-import BrandContext from "../../contexts/brands.context";
-import TagsContext from '../../contexts/tags.context';
-
+import { BrandsContext, TagsContext }  from "../../contexts/index";
 
 const FilterPanel = () => {
-  const brands = useContext(BrandContext);
+  const brands = useContext(BrandsContext);
   const tags = useContext(TagsContext);
   return (
     <section className="filter-panel">

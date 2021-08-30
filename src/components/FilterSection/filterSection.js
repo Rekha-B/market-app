@@ -1,11 +1,9 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import InputBox from "../../commons/InputBox/inputBox";
 import "./filterSection.scss";
-import tick_icon from "../../assets/images/tick_icon.svg";
 import { useFilterHook } from "../../utils/useFilterHook";
-import BrandContext from "../../contexts/brands.context";
+
 const FilterSection = ({ title, data, type, placeholder, id }) => {
-  const brands = useContext(BrandContext);
   const { list, currentValue, handleChange, searchValue, handleSearchChange } =
     useFilterHook(data, type);
 
@@ -53,9 +51,6 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
                   onChange={handleChange}
                 />
                 <span className="checkmark"></span>
-                  {/* <div className="checkbox">
-                    <img src={tick_icon} alt="tick" onChange={handleChange} />
-                  </div> */}
                 </label>
               </li>
             ))}
@@ -83,4 +78,3 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
 };
 
 export default FilterSection;
-//style={{ height : type === 'checkbox' ? '244px' : '184px'}}
