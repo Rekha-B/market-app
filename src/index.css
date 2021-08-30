@@ -23,3 +23,10 @@ code {
   src: local('OpenSans-SemiBold'),
     url(../src/assets/fonts/Open_Sans/OpenSans-Bold.ttf) format('opentype');
 }
+@font-face {
+  font-display: block;
+  font-family: 'OpenSans-Regular';
+  font-weight: normal;
+  src: local('OpenSans-Regular'),
+    url(../src/assets/fonts/Open_Sans/OpenSans-Regular.ttf) format('opentype');
+}

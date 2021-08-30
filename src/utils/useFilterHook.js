@@ -40,7 +40,8 @@ export const useFilterHook = (data, type) => {
     radio: handleRadioChange
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
+    console.log('handle Change : ', event.target);
     const { name, type, checked } = event.target;
     handlers[type](name, checked);
   };

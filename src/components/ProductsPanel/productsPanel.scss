@@ -1,4 +1,7 @@
 @import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
 section#products {
     margin-left: 16px;
    margin-top: 40.88px;
@@ -6,8 +9,8 @@ section#products {
 
    h2 {
         font-family: "OpenSans-SemiBold";
-        font-size: 13px;
-        line-height: 18px;
+        font-size: $font_size_13;
+        line-height: $line_height_18;
         color: $light_grey_color;
       }
 }

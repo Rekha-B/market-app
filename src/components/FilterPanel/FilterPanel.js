@@ -1,9 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { useContext } from 'react';
 import FilterSection from '../FilterSection/filterSection';
+import BrandContext from "../../contexts/brands.context";
+import TagsContext from '../../contexts/tags.context';
+
 
 const FilterPanel = () => {
+  const brands = useContext(BrandContext);
+  const tags = useContext(TagsContext);
   return (
-    <Fragment>
+    <section className="filter-panel">
       <FilterSection
         title="Sorting"
         data={[
@@ -13,18 +18,23 @@ const FilterPanel = () => {
           'Old to new'
         ]}
         type="radio"
+        id="price"
       />
-      <FilterSection
+      {brands && <FilterSection
         title="Brands"
-        data={[
-          'Price low to high',
-          'Price high to low',
-          'New to old',
-          'Old to new'
-        ]}
+        data={brands}
         type="checkbox"
-      />
-    </Fragment>
+        placeholder="Search brand"
+        id="brands"
+      /> }
+     { tags &&  <FilterSection
+        title="Tags"
+        data={tags}
+        type="checkbox"
+        placeholder="Search tag"
+        id="tags"
+      /> }
+    </section>
   );
 };
 

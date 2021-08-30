@@ -1,0 +1,17 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
+input.main {
+  width: 248px;
+  height: 48px;
+  border: 2px solid #e0e0e0;
+  border-radius: 2px;
+  font-size: $font_size_14;
+  line-height: $line_height_24;
+  letter-spacing: 0.15px;
+  color: #A8A8A8;
+  padding-left:16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
