@@ -1,0 +1,69 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
+.product {
+    margin-left: 20px;
+    margin-top: 22px;
+
+}
+.products-container > div {
+    height: 204px;
+    padding: 20px;
+}
+div.item-image img {
+    width: 92px;
+    height: 92px;
+}
+div.item-image {
+    width: 124px;
+    height: 124px;
+    background: #FEFEFE;
+    border: 1.17666px solid #F3F0FE;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.item-image > div {
+    width:92px;
+    height:92px;
+    background: $lighter_grey_color;
+    margin:16px;
+}
+button {
+    font-family: $font_family_opensans-regular;
+    font-style: normal;
+    font-weight: 600;
+    font-size: $font_size_12;
+    line-height: $font_size_20;
+    color: $white_color;
+    width: 124px;
+    height: 22px;
+    background: $blue_color;
+    border-radius: 2px;
+    border:none;
+    cursor: pointer;
+    margin-top:8px;
+}
+p.item-name {
+    font-family: $font_family_opensans-regular;
+    font-style: normal;
+    font-weight: 600;
+    font-size: $font_size_14;
+    line-height: $line_height_20;
+    color: $black_color;
+    margin: 0;
+    width: 124px;
+    height: 40px;
+
+}
+p.item-price {
+    font-family: Helvetica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $font_size_14;
+    line-height: $line_height_20;
+    color: $blue_color;
+    margin: 8px 0px;
+}

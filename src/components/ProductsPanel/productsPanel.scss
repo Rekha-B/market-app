@@ -8,11 +8,13 @@ section#products {
    width:608px;
   
 
-   h2 {
-        font-family: "OpenSans-Regular";
-        font-size: $font_size_13;
-        line-height: $line_height_18;
-        color: $light_grey_color;
-        margin:0
-      }
+   h1 {
+    font-family:$font_family_opensans-regular;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $font_size_20;
+    line-height: $line_height_26;
+    letter-spacing: 0.25px;
+    color: $dark_grey_color;
+  }
 }

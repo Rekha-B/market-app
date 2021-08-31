@@ -4,7 +4,7 @@
 
 ul {
   display: flex;
-  margin-top:16px;
+  margin: 16px 0px;
   li {
     width: 60px;
     height: 30px;
@@ -14,13 +14,16 @@ ul {
     color: $blue_color;
     font-size: $font_size_13;
     line-height: $line_height_18;
+    font-family: $font_family_opensans-regular;
+    font-style: normal;
+    font-weight: 600;
   }
 
   li:not(:first-child) {
     margin-left: 8px;
   }
   li.selected {
-      background: $blue_color;
-      color:$white_blue_color
+    background: $blue_color;
+    color: $white_blue_color;
   }
 }
