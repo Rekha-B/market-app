@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./dashboard.scss";
 import FilterPanel from "../FilterPanel/filterPanel";
 import ProductsPanel from "../ProductsPanel/productsPanel";
@@ -13,27 +13,48 @@ import {
 import "./dashboard.scss";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+  const [selectedType, setSelectedType] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const dispatch = useDispatch();
+
+ const getFilteredProducts = ( products, selectedType) => products.filter(product => product.itemType === selectedType);
+  
   const products = useSelector((state) => state.productsReducer.data);
-  console.log(products);
+  
+  const fetchProducts = useCallback(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  useEffect(() => {
+    if (products && products.types && products.products.length > 0) {
+        setSelectedType(products.types[0])
+    }
+  }, [products]);
+
+  const handleSelectedType = (selected) => {
+    setSelectedType(selected);
+    getFilteredProducts(products.products, selected);
+  }
+
   return (
-    <BrandsContext.Provider value={products && products.brands}>
-      <TagsContext.Provider value={products && products.tags}>
-        <ProductTypesContext.Provider value={products && products.types}>
+    <BrandsContext.Provider value={products.brands}>
+      <TagsContext.Provider value={products.tags}>
+        <ProductTypesContext.Provider value={products.types}>
           {products && products.products && products.products.length > 0 ? (
             <div id="container">
               <FilterPanel></FilterPanel>
-              <ProductsPanel products={products.products}></ProductsPanel>
+              <ProductsPanel products={getFilteredProducts(products.products, selectedType)} type={selectedType} handleSelectedType={handleSelectedType}></ProductsPanel>
               {/*  <CartPanel></CartPanel> */}
             </div>
           ) : (
-            <div class="divLoader">
+            <div className="divLoader">
               <svg
-                class="svgLoader"
+                className="svgLoader"
                 viewBox="0 0 100 100"
                 width="10em"
                 height="10em"

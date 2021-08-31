@@ -1,15 +1,13 @@
-import React , { useState} from 'react';
+import React from 'react';
 import './productsPanel.scss';
 import ProductTypes from '../ProductTypes/productType';
 import ProductsList from '../ProductsList/productsList';
 
-const ProductsPanel = ({ products }) => {
-   const [ selectedType, setSelectedType ] = useState(products[0].itemType);
-
+const ProductsPanel = ({ products, handleSelectedType, type }) => {
    return (
       <section id="products">
          <h1>Products</h1>
-         <ProductTypes selectedType={selectedType} />
+         <ProductTypes  handleSelectedType={handleSelectedType} selectedType={type}/>
          <ProductsList  products={products} />
       </section>
    )

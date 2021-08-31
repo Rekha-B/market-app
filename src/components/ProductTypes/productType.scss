@@ -17,6 +17,7 @@ ul {
     font-family: $font_family_opensans-regular;
     font-style: normal;
     font-weight: 600;
+    cursor: pointer;
   }
 
   li:not(:first-child) {
