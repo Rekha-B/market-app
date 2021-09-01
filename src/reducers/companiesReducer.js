@@ -1,4 +1,4 @@
-import { companyActionTypes } from "../actions/companyActions";
+import { companyActionTypes } from "../actions/companies.actions";
 
 const initialState = {
   data: []

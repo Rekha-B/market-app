@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 const transformData = (data, type) => {
   if (type === 'checkbox') {
-    return data.map((value, index) => ({ name: value, checked: index === 0 }));
+    return data.map((value, index) => ({ name: value.name, checked: index === 0 }));
   }
   return data.map(value => ({ name: value, value }));
 };
@@ -41,8 +41,7 @@ export const useFilterHook = (data, type) => {
   };
 
   const handleChange = (event) => {
-    console.log('handle Change : ', event.target);
-    const { name, type, checked } = event.target;
+   const { name, type, checked } = event.target;
     handlers[type](name, checked);
   };
   return { list, handleChange, currentValue, handleSearchChange, searchValue };

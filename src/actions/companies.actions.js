@@ -8,6 +8,7 @@ export const companyActionTypes = {
 
 export const getCompanies = () => async (dispatch) => {
   const res = await getApiCompanies();
+  res.unshift({ name : 'All'});
   if (res) {
     dispatch({ type: companyActionTypes.GET_COMPANIES_SUCCESS, payload: res });
   } else {
