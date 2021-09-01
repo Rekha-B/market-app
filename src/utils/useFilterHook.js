@@ -1,13 +1,18 @@
 import { useState } from 'react';
-
+import { productsActionTypes } from '../actions/products.actions';
+import { useDispatch } from 'react-redux';
 const transformData = (data, type, id) => {
   if (type === 'checkbox' && id === 'brands') {
     return data.map((value, index) => ({ name: value.name, checked: index === 0 }));
   }
-  return data.map(value => ({ name: value, value }));
+  if (type === 'radio' && id === 'price') {
+    return data.map((value, index) => ({ name: value.name, id : value.id, checked: index === 0}));
+  }
+  return data.map((value, index) => ({ name: value, value, checked: index === 0 }));
 };
 
 export const useFilterHook = (data, type, id) => {
+  const dispatch = useDispatch();
   const transformedData = transformData(data, type, id);
   const [list, setList] = useState(transformedData);
   const [currentValue, setCurrentValue] = useState(transformedData[0].value);
@@ -31,8 +36,10 @@ export const useFilterHook = (data, type, id) => {
     });
     setList(updatedList);
   };
-  const handleRadioChange = name => {
+  const handleRadioChange = (name, id) => {
     setCurrentValue(name);
+    console.log('name :', name, 'id', id);
+    dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_PRICE, payload : id})
   };
 
   const handlers = {
@@ -41,8 +48,9 @@ export const useFilterHook = (data, type, id) => {
   };
 
   const handleChange = (event) => {
-   const { name, type, checked } = event.target;
-    handlers[type](name, checked);
+    console.log(event.target);
+   const { name, type, checked, id } = event.target;
+    handlers[type](name, checked, id);
   };
   return { list, handleChange, currentValue, handleSearchChange, searchValue };
 };

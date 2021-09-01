@@ -27,3 +27,4 @@ export const getApiCompanies = async() => {
     return null;
   }
 };
+

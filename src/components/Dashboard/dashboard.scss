@@ -1,5 +1,6 @@
 #container {
     display: flex;
+    justify-content: center;
 }
 .svgLoader {
     animation: spin 0.5s linear infinite;

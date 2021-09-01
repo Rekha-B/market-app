@@ -10,14 +10,14 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
   const RadioGroup = () => {
     return (
       <ol>
-        {list.map(({ name, value, checked }) => (
+        {list.map(({ name, value, checked, id }) => (
           <li key={name}>
             <label className="radio-custom">
              
               {name}
               <input
                   type="radio"
-                  name="radio"
+                  id={id}
                   value={value}
                   checked={checked}
                   onChange={handleChange}
@@ -39,7 +39,7 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
           onChange={handleSearchChange}
           placeholder={placeholder}
         />
-        <ol style={{ marginTop: "19px", height: "140px", overflow: "auto" }}>
+        <ol style={{ marginTop: "19px", height: "140px", overflow: "auto" }} id="checkbox">
           {list.map(({ name, value, checked }) => (
               <li key={name}>
                 <label>
