@@ -17,7 +17,6 @@ export const getApiProducts = async () => {
 
 export const getApiCompanies = async() => {
   try {
-    // we can pass the data dynamically
     const response = await axios.get(`${COMPANIES_URL}`);
 
     if (response && response.data) {

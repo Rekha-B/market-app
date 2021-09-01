@@ -3,16 +3,9 @@ import { useSelector } from 'react-redux';
 import FilterSection from '../FilterSection/filterSection';
 
 const FilterPanel = ({ brands }) => {
-  const products = useSelector((state) => state.productsReducer.data);
-  console.log(products);
-  const tagsData =
-  products && products.length > 0 && products.map(({ tags }) => tags);
-const tags = [
-  ...new Set(
-    tagsData && tagsData.reduce((acc, item) => acc.concat(...item), [])
-  ),
-];
-  console.log("tags " , tags);
+  const products = useSelector((state) => state.productsReducer.products);
+  const tagsData = products && products.length > 0 && products.map(({ tags }) => tags);
+ const tags = tagsData && [...new Set(tagsData.reduce((acc, item) => acc.concat(...item), ['All']))];
  return (
     <section className="filter-panel">
       <FilterSection
@@ -33,18 +26,13 @@ const tags = [
         placeholder="Search brand"
         id="brands"
       /> }
-      <FilterSection
+      {tags && tags.length > 0 && <FilterSection
         title="Tags"
-        data={[
-          'Price low to high',
-          'Price high to low',
-          'New to old',
-          'Old to new'
-        ]}
+        data={tags}
         type="checkbox"
         placeholder="Search tag"
         id="tags"
-      /> 
+      /> }
     </section>
   );
 };

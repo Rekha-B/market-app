@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-const transformData = (data, type) => {
-  if (type === 'checkbox') {
+const transformData = (data, type, id) => {
+  if (type === 'checkbox' && id === 'brands') {
     return data.map((value, index) => ({ name: value.name, checked: index === 0 }));
   }
   return data.map(value => ({ name: value, value }));
 };
 
-export const useFilterHook = (data, type) => {
-  const transformedData = transformData(data, type);
+export const useFilterHook = (data, type, id) => {
+  const transformedData = transformData(data, type, id);
   const [list, setList] = useState(transformedData);
   const [currentValue, setCurrentValue] = useState(transformedData[0].value);
   const [searchValue, setSearchValue] = useState('');

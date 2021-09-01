@@ -5,7 +5,7 @@ import { useFilterHook } from "../../utils/useFilterHook";
 
 const FilterSection = ({ title, data, type, placeholder, id }) => {
   const { list, currentValue, handleChange, searchValue, handleSearchChange } =
-    useFilterHook(data, type);
+    useFilterHook(data, type, id);
 
   const RadioGroup = () => {
     return (

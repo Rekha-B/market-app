@@ -6,6 +6,7 @@ import './productsList.scss';
 
 const ProductsList = () => {
   const products = useSelector((state) => state.productsReducer.products);
+  console.log("products in list : ", products);
   const types = [...new Set(products.map(({ itemType }) => itemType))];
   const [selectedType, setSelectedType] = useState(types ? types[0] : '');
 
@@ -16,6 +17,9 @@ const ProductsList = () => {
   const handleSelectedType = (type) => {
     setSelectedType(type);
   }
+  
+
+
   return (
     <section id="products">
        <h1>Products</h1>

@@ -1,7 +1,9 @@
 import { productsActionTypes } from "../actions/products.actions";
 
  const initialState = {
-    products: []
+    products: [],
+    appliedBrands : [],
+    appliedTags : []
   }
 
 export const productsReducer =  (state = initialState, action) => {
