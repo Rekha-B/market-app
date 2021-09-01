@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import FilterSection from '../FilterSection/filterSection';
-import { BrandsContext, TagsContext }  from "../../contexts/index";
 
 const FilterPanel = () => {
-  const brands = useContext(BrandsContext);
-  const tags = useContext(TagsContext);
+
+  
   return (
     <section className="filter-panel">
       <FilterSection
@@ -18,20 +17,30 @@ const FilterPanel = () => {
         type="radio"
         id="price"
       />
-      {brands && <FilterSection
+      <FilterSection
         title="Brands"
-        data={brands}
+        data={[
+          'Price low to high',
+          'Price high to low',
+          'New to old',
+          'Old to new'
+        ]}
         type="checkbox"
         placeholder="Search brand"
         id="brands"
-      /> }
-     { tags &&  <FilterSection
+      /> 
+      <FilterSection
         title="Tags"
-        data={tags}
+        data={[
+          'Price low to high',
+          'Price high to low',
+          'New to old',
+          'Old to new'
+        ]}
         type="checkbox"
         placeholder="Search tag"
         id="tags"
-      /> }
+      /> 
     </section>
   );
 };

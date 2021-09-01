@@ -1,4 +1,22 @@
-#products-list {
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+section#products {
+    margin-left: 16px;
+   margin-top: 40.88px;
+   width:608px;
+  
+
+   h1 {
+    font-family:$font_family_opensans-regular;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $font_size_20;
+    line-height: $line_height_26;
+    letter-spacing: 0.25px;
+    color: $dark_grey_color;
+  }
+  #products-list {
     display: flex;
     overflow: hidden;
     flex-wrap: wrap;
@@ -7,4 +25,5 @@
     background: #ffffff;
     box-shadow: '0px 4px 24px rgb(93 62 188 / 4%)';
     border-radius: 2px;
+  }
 }

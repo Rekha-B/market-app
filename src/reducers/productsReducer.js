@@ -1,16 +1,13 @@
-import * as types from '../constants/actionTypes';
+import { productsActionTypes } from "../actions/products.actions";
+
  const initialState = {
-    data : {}
- }
+    products: []
+  }
 
 export const productsReducer =  (state = initialState, action) => {
-    switch(action.type){
-        case types.GET_PRODUCTS:
-            return {
-                ...state,
-                data: action.payload,
-            }
-        default:
-                return state;
-    }  
+    switch (action.type){
+        case productsActionTypes.GET_PRODUCTS_SUCCESS: return { ...state, products: action.payload.products};
+        case productsActionTypes.GET_PRODUCTS_ERROR: return { ...state, products: []};
+        default: return state;
+      }
 }
