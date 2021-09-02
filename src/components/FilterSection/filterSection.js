@@ -7,6 +7,7 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
   const { list, currentValue, handleChange, searchValue, handleSearchChange } =
     useFilterHook(data, type, id);
 
+  
   const RadioGroup = () => {
     return (
       <ol>
@@ -18,6 +19,7 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
               <input
                   type="radio"
                   id={id}
+                  name="radio"
                   value={value}
                   checked={checked}
                   onChange={handleChange}

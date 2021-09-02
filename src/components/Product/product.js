@@ -17,7 +17,6 @@ const Product = ({ product }) => {
       <div className="item-image">
         <div></div>
       </div>
-      {/* <p className="item-price">{CURRENCY_SYMBOL} {price}</p> */}
       <Price price={price} />
       <p className="item-name">{name}</p>
       <button onClick={() => handleAddToCart(product)}>Add</button>
