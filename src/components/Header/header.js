@@ -10,7 +10,7 @@ const Header = () => {
     const calculateTotal = () => cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   
   return (
-    <header>
+    <header className="flex">
       <img src={logo} alt="logo" />
       <div id="CartCount">
         <img src={basketIcon} alt="basket-icon" />

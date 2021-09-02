@@ -5,7 +5,6 @@ import { addToCart, removeFromCart} from "../../actions/cart.actions";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cartReducer.items);
-  console.log("cart items :", cartItems);
   const dispatch = useDispatch();
   const handleIncreaseQuantity = (id, name, price) => dispatch(addToCart(id, name, price));
   const handleDecreaseQuantity = (id) => dispatch(removeFromCart(id));
@@ -38,7 +37,7 @@ const Cart = () => {
           </div>
         );
       })}
-      <div className="total-price">
+      <div className="total-price flex">
       <Price price={calculateTotal()} />
       </div>
       

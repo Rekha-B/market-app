@@ -8,7 +8,6 @@ import { Pagination } from '../Pagination/pagination';
 
 const ProductsList = () => {
   const products = useSelector((state) => state.productsReducer.products);
-  console.log("products in list : ", products);
   const types = useSelector((state) => state.productsReducer.types);;
   const [selectedType, setSelectedType] = useState(types ? types[0] : '');
   const dispatch = useDispatch();

@@ -1,0 +1,42 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $font_size_14;
+    font-weight: bold;
+    width:608px;
+    overflow:hidden;
+    margin-top: 15px;
+  
+    a {
+      padding: 10px 12px;
+      text-decoration: none;
+      transition: all .3s ease;
+      color: #697488;
+      border-radius: 3px;
+      cursor: pointer;
+  
+      &:hover {
+        color: $blue_color;
+      }
+
+      &.active {
+        background: $blue_color;
+        border-radius: 2px;
+        width:32px;
+        height:40px;
+        color: $white_color;
+      }
+      &.prev span {
+        margin-left: 10px;
+      }
+
+      &.next span {
+        margin-right: 10px;
+      }
+    }
+}
