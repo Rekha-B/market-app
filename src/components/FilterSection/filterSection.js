@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import InputBox from "../../commons/InputBox/inputBox";
 import "./filterSection.scss";
+import InputBox from "../../commons/InputBox/inputBox";
 import { useFilterHook } from "../../utils/useFilterHook";
 
 const FilterSection = ({ title, data, type, placeholder, id }) => {

@@ -1,0 +1,13 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+
+div.price {
+    font-family: $font_family_opensans-semibold ;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $font_size_14;
+    line-height: $line_height_20;
+    color: $blue_color;
+    margin: 8px 0px;
+}

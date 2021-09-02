@@ -1,18 +1,17 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import "./dashboard.scss";
 import FilterPanel from "../FilterPanel/filterPanel";
 import ProductsList from "../ProductsList/productsList";
-import { useSelector } from "react-redux";
-import "./dashboard.scss";
+import Cart from '../Cart/cart';
 
 const Dashboard = () => {
   const brands = useSelector((state) => state.companyReducer.data);
-
+  const cartItems = useSelector((state) => state.cartReducer.items);
   return (
     <div id="container">
       <FilterPanel brands={brands}  />
       <ProductsList />
-      {/* <CartPanel/> */}
+      { cartItems && cartItems.length > 0 && <Cart/> }
     </div>
   );
 };

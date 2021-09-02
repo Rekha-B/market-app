@@ -7,17 +7,28 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
+  img {
+    width: 141.25px;
+    height: 40.32px;
+  }
+
+  #CartCount {
+    background: $dark_blue;
+    width: 129px;
+    height: inherit;
+    position: absolute;
+    right: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     img {
-        width: 141.25px;
-        height: 40.32px;
+      width: 13.89px;
     }
 
-    #CartCount {
-        background: $dark_blue;
-        width: 129px;
-        height: inherit;
-        position: absolute;
-        right: 104px;
-      }
+    .price {
+      color: $white_color;
+      margin-left: 13.41px;
+    }
+  }
 }
-

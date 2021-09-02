@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import './productsList.scss';
 import ProductItem from '../Product/product';
 import ProductTypes from '../ProductTypes/productType';
-import './productsList.scss';
 import { getFilteredProducts } from "../../actions/products.actions";
+import { Pagination } from '../Pagination/pagination';
 
 const ProductsList = () => {
   const products = useSelector((state) => state.productsReducer.products);
@@ -32,6 +33,7 @@ const ProductsList = () => {
             ))
         }
       </div>
+      <Pagination />
     </section>
  )
 }
