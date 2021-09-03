@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { productsActionTypes } from '../actions/products.actions';
-import { useDispatch } from 'react-redux';
-const transformData = (data, type, id) => {
+import { getProducts, productsActionTypes } from '../actions/products.actions';
+import { useDispatch, useSelector } from 'react-redux';
+const transformData = (data, type, id, selectedPriceType) => {
   if (type === 'checkbox' && id === 'brands') {
-    return data.map((value, index) => ({ name: value.name, checked: index === 0 }));
+    return data.map((value, index) => ({ name: value.name, slug : value.slug,  id }));
   }
   if (type === 'radio' && id === 'price') {
-    return data.map((value, index) => ({ name: value.name, id : value.id}));
+    return data.map((value, index) => ({ name: value.name, id : value.id , checked : value.id === selectedPriceType}));
   }
-  return data.map((value, index) => ({ name: value, value, checked: index === 0 }));
+  return data.map((value, index) => ({ name: value, value , id}));
 };
 
 export const useFilterHook = (data, type, id) => {
+  const { activePage, selectedType, selectedPriceType } = useSelector((state) => state.productsReducer);
+  console.log('inside use filter hook', selectedPriceType);
   const dispatch = useDispatch();
-  const transformedData = transformData(data, type, id);
+  const transformedData = transformData(data, type, id, selectedPriceType);
   const [list, setList] = useState(transformedData);
   const [currentValue, setCurrentValue] = useState(transformedData[0].value);
   const [searchValue, setSearchValue] = useState('');
-
   const handleSearchChange = event => {
     const { value } = event.target;
     const updatedList = transformedData.filter(item =>
@@ -27,19 +28,22 @@ export const useFilterHook = (data, type, id) => {
     setList(updatedList);
   };
 
-  const handLeCheckboxChange = (name, checked) => {
+  const handLeCheckboxChange = (name, checked, id) => {
+    console.log('list : ', list, id);
     const updatedList = list.map(item => {
       if (item.name === name) {
         return { ...item, checked: checked };
       }
       return item;
     });
+    console.log("In checkbox ", updatedList,id);
+    dispatch({ type: productsActionTypes.GET_PRODUCTS_BY_OPTIONS, payload :  { data : updatedList, datatype : id}})
     setList(updatedList);
   };
   const handleRadioChange = (name, checked, id) => {
     setCurrentValue(name);
     console.log('name :', name, 'id', id);
-    dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_PRICE, payload : id})
+   // dispatch(getProducts(activePage, selectedType, id));
   };
 
   const handlers = {

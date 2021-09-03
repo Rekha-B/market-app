@@ -5,14 +5,17 @@ import ProductsList from "../ProductsList/productsList";
 import Cart from '../Cart/cart';
 
 const Dashboard = () => {
-  const brands = useSelector((state) => state.companyReducer.data);
   const cartItems = useSelector((state) => state.cartReducer.items);
+  const { isLoading } = useSelector((state) => state.productsReducer);
   return (
-    <div id="container">
-      <FilterPanel brands={brands}  />
+    <>
+    { !isLoading &&
+    (<div id="container">
+      {/* <FilterPanel /> */}
       <ProductsList />
       { cartItems && cartItems.length > 0 && <Cart/> }
-    </div>
+    </div>) }
+    </>
   );
 };
 

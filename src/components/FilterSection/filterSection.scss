@@ -77,13 +77,15 @@ section#filter {
         margin-right: 12px;
       }
 
+
       ol#checkbox li label span.checkmark {
         box-shadow: 0px 1px 7px rgba(93, 56, 192, 0.4);
         border-radius: 2px;
       }
 
-      label label input:checked ~ .checkmark {
+      label input:checked ~ .checkmark {
         background-color: $white_color;
+        border: 2px solid #1EA4CE;
       }
 
       .checkmark:after {

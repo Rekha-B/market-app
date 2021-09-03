@@ -42,11 +42,12 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
           placeholder={placeholder}
         />
         <ol style={{ marginTop: "19px", height: "140px", overflow: "auto" }} id="checkbox">
-          {list.map(({ name, value, checked }) => (
+          {list.map(({ name, value, checked, slug, id }) => (
               <li key={name}>
                 <label>
                   {name}
                   <input
+                  id={id}
                   type="checkbox"
                   name={name}
                   checked={checked}

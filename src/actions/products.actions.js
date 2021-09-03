@@ -1,4 +1,4 @@
-import { getApiProducts, getApiProductsFiltered } from "../apis/index";
+import { getApiProducts, getApiProductsFiltered, getApiCompanies } from "../apis/index";
 
 export const productsActionTypes = {
   GET_PRODUCTS_SUCCESS: "GET_PRODUCTS_SUCCESS",
@@ -7,11 +7,31 @@ export const productsActionTypes = {
   GET_FILTERED_PRODUCTS_BY_PRICE: "GET_FILTERED_PRODUCTS_BY_PRICE",
   GET_PRODUCTS_BY_PAGE: "GET_PRODUCTS_BY_PAGE",
   GET_PRODUCTS_FILTERED_SUCCESS: 'GET_PRODUCTS_FILTERED_SUCCESS',
-  GET_PRODUCTS_FILTERED_ERROR: 'GET_PRODUCTS_FILTERED_ERROR'
+  GET_PRODUCTS_FILTERED_ERROR: 'GET_PRODUCTS_FILTERED_ERROR',
+  GET_PRODUCTS_BY_OPTIONS : 'GET_PRODUCTS_BY_OPTIONS',
+  GET_FILTERED_PRODUCTS_BY_PAGE : 'GET_FILTERED_PRODUCTS_BY_PAGE'
 };
 
+export const companyActionTypes = {
+  GET_COMPANIES_SUCCESS: 'GET_COMPANIES_SUCCESS',
+  GET_COMPANIES_ERROR: 'GET_COMPANIES_ERROR'
+}
+
+
+export const getCompanies = () => async (dispatch) => {
+  const res = await getApiCompanies();
+  if (res) {
+    dispatch({ type: companyActionTypes.GET_COMPANIES_SUCCESS, payload: res });
+  } else {
+    dispatch({ type: companyActionTypes.GET_COMPANIES_ERROR, payload: null })
+  }
+};
+
+
 export const getProducts = (page) => async (dispatch) => {
+
   const res = await getApiProducts();
+  console.log("Product actions called", page);
   if (res) {
     dispatch({
       type: productsActionTypes.GET_PRODUCTS_SUCCESS,
