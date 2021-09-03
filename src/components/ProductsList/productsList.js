@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import './productsList.scss';
 import ProductItem from '../Product/product';
 import ProductTypes from '../ProductTypes/productType';
-import { getFilteredProducts, getProducts, productsActionTypes } from "../../actions/products.actions";
+import { productsActionTypes } from "../../actions/products.actions";
 import { Pagination } from '../Pagination/pagination';
 
 const ProductsList = () => {

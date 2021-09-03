@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { getProducts, productsActionTypes } from '../actions/products.actions';
 import { useDispatch, useSelector } from 'react-redux';
-const transformData = (data, type, id, selectedPriceType) => {
+const transformData = (data, type, id, selectedSortType) => {
+  console.log(data, selectedSortType);
   if (type === 'checkbox' && id === 'brands') {
     return data.map((value, index) => ({ name: value.name, slug : value.slug,  id }));
   }
   if (type === 'radio' && id === 'price') {
-    return data.map((value, index) => ({ name: value.name, id : value.id , checked : value.id === selectedPriceType}));
+    return data.map((value, index) => ({ name: value.name, id : value.id , checked : value.id === selectedSortType}))
   }
   return data.map((value, index) => ({ name: value, value , id}));
 };
 
 export const useFilterHook = (data, type, id) => {
-  const { activePage, selectedType, selectedPriceType } = useSelector((state) => state.productsReducer);
-  console.log('inside use filter hook', selectedPriceType);
+  const {  selectedSortType } = useSelector((state) => state.productsReducer);
+  console.log('inside use filter hook', selectedSortType);
   const dispatch = useDispatch();
-  const transformedData = transformData(data, type, id, selectedPriceType);
+  const transformedData = transformData(data, type, id, selectedSortType);
   const [list, setList] = useState(transformedData);
   const [currentValue, setCurrentValue] = useState(transformedData[0].value);
   const [searchValue, setSearchValue] = useState('');
@@ -42,8 +43,8 @@ export const useFilterHook = (data, type, id) => {
   };
   const handleRadioChange = (name, checked, id) => {
     setCurrentValue(name);
-    console.log('name :', name, 'id', id);
-   // dispatch(getProducts(activePage, selectedType, id));
+    console.log("Handle radio change", "name :", name, 'id', id);
+    dispatch({ type : productsActionTypes.GET_SORTED_PRODUCTS, payload : { sortType : id}})
   };
 
   const handlers = {

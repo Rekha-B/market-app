@@ -1,13 +1,20 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import "./filterSection.scss";
+import { useDispatch, useSelector } from "react-redux";
 import InputBox from "../../commons/InputBox/inputBox";
 import { useFilterHook } from "../../utils/useFilterHook";
+import { productsActionTypes } from "../../actions/products.actions";
 
 const FilterSection = ({ title, data, type, placeholder, id }) => {
   const { list, currentValue, handleChange, searchValue, handleSearchChange } =
     useFilterHook(data, type, id);
-
+  const dispatch = useDispatch();
+  const { totalPage } = useSelector((state) => state.productsReducer);
   
+  useEffect(() => {
+     dispatch({ type : productsActionTypes.GET_SORTED_PRODUCTS})
+  }, [totalPage]);
+
   const RadioGroup = () => {
     return (
       <ol>

@@ -21,7 +21,7 @@ const initialState = {
     { name: "Old to new", id: "old" },
   ],
   selectedType: "",
-  selectedPriceType: "low",
+  selectedSortType: "low",
   selectedBrands: [],
   selectedTags : [],
   filteredProducts : []
@@ -60,7 +60,6 @@ export const productsReducer = (state = initialState, action) => {
         // activePage: action.payload.activePage,
         // selectedPriceType : action.payload.selectedPriceType ? action.payload.selectedPriceType : state.selectedPriceType
       };
-      const filteredProds = getFilteredProductsByFilterOptions(updatedState);
       console.log("updated state in reducer: ", updatedState);
       updatedState = {
         ...state,
@@ -73,8 +72,8 @@ export const productsReducer = (state = initialState, action) => {
          types : updatedState.types,
          activePage: state.activePage,
          selectedType: updatedState.selectedType,
-         initialProducts : updatedState.initialProducts
-        // selectedPriceType: updatedState.selectedPriceType
+         initialProducts : updatedState.initialProducts,
+         tags : updatedState.tags
       };
       console.log("updated state in reducer after", updatedState);
       return updatedState;
@@ -101,6 +100,18 @@ export const productsReducer = (state = initialState, action) => {
           products : filteredProductsByPage,
           activePage : action.payload.page
         }
+    case productsActionTypes.GET_SORTED_PRODUCTS : 
+    console.log('inside GET_SORTED_PRODUCTS', action, state);
+        let sortType = action.payload && action.payload.sortType ?  action.payload.sortType : state.selectedSortType;
+        let sortedProducts = sortProducts(state.filteredProducts, action, sortType);
+        console.log('sortedProducts : ', sortedProducts);
+        return {
+          ...state,
+          products : getProductsFilteredByPage(sortedProducts, state.activePage),
+          selectedSortType : sortType,
+          activePage : state.activePage,
+          filteredProducts: sortedProducts
+        }
     default:
       return state;
   }
@@ -113,14 +124,15 @@ export const productsReducer = (state = initialState, action) => {
  * @param {*} page
  * @returns
  */
-const getFilteredProductsByPrice = (products, type) => {
-  console.log('Get products by price : ', products, type);
+const sortProducts = (products, action, sortType) => {
+  console.log('Get products by price : ', products, action, sortType);
   let filteredProds = [...products];
-  if (type === "low") {
+  console.log("sort type : ", sortType);
+  if (sortType === "low") {
     filteredProds.sort((a, b) => a.price - b.price);
-  } else if (type === "high") {
+  } else if (sortType === "high") {
     filteredProds.sort((a, b) => b.price - a.price);
-  } else if (type=== "old") {
+  } else if (sortType=== "old") {
     filteredProds.sort((a, b) => new Date(a.added) - new Date(b.added));
   } else {
     filteredProds.sort((a, b) => new Date(b.added) - new Date(a.added));
@@ -172,13 +184,13 @@ const getProductsByOptions = (products, action, page) => {
 };
 
 
-const getFilteredProductsByFilterOptions = (state) => {
-  console.log("state in filtering options : ", state.selectedPriceType);
-  let filteredProducts = [];
-  if (state.selectedType !== "") {
-    filteredProducts = state.initialProducts.filter((product) => product.itemType === state.selectedType);
-  }
-  filteredProducts = getFilteredProductsByPrice(filteredProducts, state.selectedPriceType);
-  console.log("filter options:", filteredProducts);
-  return filteredProducts;
-};
+// const getFilteredProductsByFilterOptions = (state) => {
+//   console.log("state in filtering options : ", state.selectedPriceType);
+//   let filteredProducts = [];
+//   if (state.selectedType !== "") {
+//     filteredProducts = state.initialProducts.filter((product) => product.itemType === state.selectedType);
+//   }
+//   filteredProducts = getFilteredProductsByPrice(filteredProducts, state.selectedPriceType);
+//   console.log("filter options:", filteredProducts);
+//   return filteredProducts;
+// };

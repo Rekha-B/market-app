@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux';
 import FilterSection from '../FilterSection/filterSection';
 
 const FilterPanel = () => {
-  const price = useSelector((state) => state.productsReducer.price);
+  const { price, brands, tags } = useSelector((state) => state.productsReducer);
+  console.log('Inside Filter Panel : ', tags);
  return (
     <section className="filter-panel">
       {price && price.length > 0 && <FilterSection
@@ -24,7 +25,7 @@ const FilterPanel = () => {
         type="checkbox"
         placeholder="Search tag"
         id="tags"
-      /> } */}
+      /> }  */}
     </section>
   );
 };

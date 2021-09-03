@@ -7,11 +7,12 @@ import Cart from '../Cart/cart';
 const Dashboard = () => {
   const cartItems = useSelector((state) => state.cartReducer.items);
   const { isLoading } = useSelector((state) => state.productsReducer);
+
   return (
     <>
     { !isLoading &&
     (<div id="container">
-      {/* <FilterPanel /> */}
+      <FilterPanel />
       <ProductsList />
       { cartItems && cartItems.length > 0 && <Cart/> }
     </div>) }
