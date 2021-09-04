@@ -2,4 +2,4 @@
 A React project for Market with JSON Server
 
 ## Project Design
-![Design](https://ibb.co/VVHFRYy/Market-app-design.png)
+![Design](https://i.ibb.co/1ZsC1GV/Market-app-design.png)
