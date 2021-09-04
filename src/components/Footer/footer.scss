@@ -1,0 +1,13 @@
+@import "../../styles/colors.scss";
+@import "../../styles/fontsize.scss";
+@import "../../styles/common.scss";
+footer p {
+  font-family: $font_family_opensans-regular;
+  font-style: normal;
+  font-weight: normal;
+  font-size: $font_size_13;
+  line-height: 174%;
+  color: $blue_color;
+  text-align: center;
+  margin-top:50px;
+}

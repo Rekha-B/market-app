@@ -32,6 +32,7 @@ const ProductsList = () => {
         }
       </div>
       <Pagination />
+      
     </section>
  )
 }
