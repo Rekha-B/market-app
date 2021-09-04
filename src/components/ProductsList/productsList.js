@@ -7,17 +7,15 @@ import { productsActionTypes } from "../../actions/products.actions";
 import { Pagination } from '../Pagination/pagination';
 
 const ProductsList = () => {
-  const { products, types, selectedType, totalPage } = useSelector((state) => state.productsReducer);
-  console.log("inside product list:", products, types, selectedType, totalPage);
+  const { products, types, selectedType } = useSelector((state) => state.productsReducer);
   const [selectedProductType, setSelectedProductType] = useState(selectedType);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_TYPE})
-  },[]);
+  },[dispatch]);
 
   const handleSelectedType = (type) => {
-    console.log('selected Type : ', type);
     setSelectedProductType(type);
     dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_TYPE, payload : { type : type}})
   }
@@ -29,7 +27,7 @@ const ProductsList = () => {
        <div id="products-list">
        {
             products.length > 0  ? products.map(product => (
-               <ProductItem product={product} />
+               <ProductItem key={product.slug} product={product} />
             )) : <span>No Products</span>
         }
       </div>

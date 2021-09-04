@@ -7,8 +7,7 @@ import {  productsActionTypes } from "../../actions/products.actions";
 import { PAGINATION_SHOW_PAGES, PAGINATION_MIN_PAGE_LIMIT } from "../../constants";
 
 export const Pagination = () => {
-  const { totalPage, activePage, selectedType } = useSelector((state) => state.productsReducer);
-  console.log("total page inside pagination:", totalPage, "activePage", activePage, "selectedType : ",selectedType);
+  const { totalPage, activePage } = useSelector((state) => state.productsReducer);
   const dispatch = useDispatch();
 
   /**
@@ -35,7 +34,6 @@ export const Pagination = () => {
    */
   const handlePageNumberClick = (event) => {
     const pageNumber = event.target.id;
-    console.log("handle page number : ", selectedType, pageNumber);
     dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_PAGE, payload : { page : pageNumber}});
   };
 

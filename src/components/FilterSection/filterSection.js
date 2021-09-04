@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import "./filterSection.scss";
 import InputBox from "../../commons/InputBox/inputBox";
 import { useFilterHook } from "../../utils/useFilterHook";
-import { useSelector } from "react-redux";
 
 const FilterSection = ({ title, data, type, placeholder, id }) => {
   const { list, handleChange, searchValue, handleSearchChange } =

@@ -3,8 +3,7 @@ import FilterSection from '../FilterSection/filterSection';
 
 const FilterPanel = () => {
   const { price, brands, tags } = useSelector((state) => state.productsReducer);
-  console.log('Inside Filter Panel : ', "tags", tags, "brands", brands);
- return (
+  return (
     <section className="filter-panel">
       {price && price.length > 0 && <FilterSection
         title="Sorting"

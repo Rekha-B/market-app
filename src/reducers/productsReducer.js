@@ -1,5 +1,4 @@
 import {
-  getProducts,
   productsActionTypes,
   companyActionTypes,
 } from "../actions/products.actions";
@@ -29,18 +28,15 @@ const initialState = {
 };
 
 export const productsReducer = (state = initialState, action) => {
-  console.log("Products state in reducer before: ");
   switch (action.type) {
 
       case companyActionTypes.GET_COMPANIES_SUCCESS:
-        console.log(action.payload, "in companies");
         return {
           ...state,
           brands: action.payload,
         };
 
       case productsActionTypes.GET_PRODUCTS_SUCCESS:
-        console.log("Inside products reducer", state, action);
         let updatedState = {
           ...state,
           initialProducts: action.payload.products,
@@ -61,7 +57,6 @@ export const productsReducer = (state = initialState, action) => {
           ],
           selectedType: action.payload.products[0].itemType,
         };
-        console.log("updated state in reducer: ", updatedState);
         updatedState = {
           ...state,
           products: getProductsFilteredByPage(
@@ -76,7 +71,6 @@ export const productsReducer = (state = initialState, action) => {
           initialProducts : updatedState.initialProducts,
           tags : updatedState.tags
         };
-        console.log("updated state in reducer after", updatedState);
         return updatedState;
 
       case productsActionTypes.GET_PRODUCTS_ERROR:  return { ...state, products: [] };
@@ -95,9 +89,7 @@ export const productsReducer = (state = initialState, action) => {
             }
 
       case productsActionTypes.GET_FILTERED_PRODUCTS_BY_PAGE : 
-          console.log('inside GET_FILTERED_PRODUCTS_BY_PAGE', action);
           let filteredProductsByPage = getProductsFilteredByPage(state.filteredProducts, parseInt(action.payload.page));
-          console.log('Filtered products by page : ', filteredProductsByPage);
           return {
             ...state,
             products : filteredProductsByPage,
@@ -105,10 +97,8 @@ export const productsReducer = (state = initialState, action) => {
           }
 
       case productsActionTypes.GET_SORTED_PRODUCTS : 
-          console.log('inside GET_SORTED_PRODUCTS', action, state);
           let sortType = action.payload.sortType;
           let sortedProducts = sortProducts(state, state.filteredProducts, sortType);
-          console.log('sortedProducts : ', sortedProducts);
           return {
             ...state,
             products : getProductsFilteredByPage(sortedProducts, state.activePage),
@@ -118,7 +108,6 @@ export const productsReducer = (state = initialState, action) => {
           }
     
       case productsActionTypes.GET_PRODUCTS_BY_BRANDS : 
-           console.log('Inside GET_PRODUCTS_BY_BRANDS', state, action);
            let filteredProductsByBrands= getProductsByBrands(state, state.filteredProducts, action);
            return {
                   ...state,
@@ -129,7 +118,6 @@ export const productsReducer = (state = initialState, action) => {
          }      
          
          case productsActionTypes.GET_PRODUCTS_BY_TAGS : 
-         console.log('Inside GET_PRODUCTS_BY_TAGS', state, action);
          let filteredProductsByTags = getProductsByTags(state, state.filteredProducts, action);
          return {
                 ...state,
@@ -151,7 +139,6 @@ export const productsReducer = (state = initialState, action) => {
  * @returns
  */
 const sortProducts = (state, products, sortType) => {
-      //console.log('Get products by price : ', products, action, sortType, state);
       if (sortType === "low") {
         products.sort((a, b) => a.price - b.price);
       } else if (sortType === "high") {
@@ -167,8 +154,6 @@ const sortProducts = (state, products, sortType) => {
       if(state.selectedTags.length > 0) {
         products = getProductsByTags(state, products, { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
       }
-      console.log("fil : ",products);
-      // filteredProds = getProductsFilteredByProductType(state, filteredProds, { payload : {type : state.selectedType}});
       return products;
 };
 /**
@@ -178,7 +163,6 @@ const sortProducts = (state, products, sortType) => {
  * @returns
  */
 const getProductsFilteredByPage = (products, activePage) => {
-  console.log("Inside Filter products by page : ", products, activePage);
   let copyProducts = [...products];
   if (activePage === 1) return copyProducts.slice(0, PRODUCT_PAGE_LIMIT);
   return copyProducts.slice(
@@ -188,11 +172,8 @@ const getProductsFilteredByPage = (products, activePage) => {
 };
 
 const getProductsFilteredByProductType = (state, products, action) => {
-      console.log('Filter Products By Type', state, action);
       let productType = (action.payload && action.payload.type) ? action.payload.type : state.selectedType;
-      console.log('product type :', productType, products);
       let filteredProductsByType = products.filter(product => product.itemType === productType);
-      console.log('Filtered Products By Type', filteredProductsByType);
       if(state.selectedBrands.length > 0) {
         filteredProductsByType = getProductsByBrands(state, filteredProductsByType, action = { payload : { data : state.selectedBrands, datatype : 'brands'}}).filteredProds;
       }
@@ -206,11 +187,9 @@ const getProductsFilteredByProductType = (state, products, action) => {
 const getProductsByBrands = (state, products, action) => {
     let filteredProds = [];
     let selectedData = action.payload.data;
-    console.log("selectedData : ", selectedData);
     if (selectedData.length > 0) {
       filteredProds = products.filter((product) => selectedData.includes(product.manufacturer));
-      console.log("filtered prods : ", filteredProds);
-    } else {
+      } else {
       filteredProds = products;
     }
     if( state.selectedTags.length > 0){
@@ -223,13 +202,11 @@ const getProductsByBrands = (state, products, action) => {
 };
 
 const getProductsByTags = (state, products, action) => {
-  console.log('inside tags', state.selectedBrands);
   let filteredProds = [];
   let selectedData = action.payload.data;
  if (selectedData.length > 0) {
     filteredProds = products.filter((product) => selectedData.some(r => product.tags.includes(r)));
     filteredProds = state.selectedBrands.length > 0 ? filteredProds.filter((product) => state.selectedBrands.includes(product.manufacturer)) : filteredProds;
-    console.log("filtered prods : ", filteredProds);
   } else {
     filteredProds = products;
   }

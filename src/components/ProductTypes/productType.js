@@ -3,7 +3,7 @@ import './productType.scss';
 const ProductType = ({ types , selectedType, handleSelectedType }) => {
    return (
        <ul>
-           {types.map(type => <li className={`${selectedType === type ? 'selected' : ''}`}  onClick={() => handleSelectedType(type)}>{type}</li>)}
+           {types.map(type => <li key={type} className={`${selectedType === type ? 'selected' : ''}`}  onClick={() => handleSelectedType(type)}>{type}</li>)}
        </ul>
    )
 }
