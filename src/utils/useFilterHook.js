@@ -37,11 +37,14 @@ export const useFilterHook = (data, type, id) => {
       }
       return item;
     });
-    console.log("In checkbox ", updatedList,id);
+    console.log("In checkbox ", updatedList,id, typeof(id),  typeof('brands'), id === 'brands');
     let selectedData = updatedList.filter((data) => data.checked === true).map((item) => (id === "brands" ? item.slug : item.name));
-    dispatch({ type: productsActionTypes.GET_PRODUCTS_BY_OPTIONS, payload :  { data : selectedData, datatype : id}})
+    let dispatchType = id === 'brands' ? productsActionTypes.GET_PRODUCTS_BY_BRANDS : productsActionTypes.GET_PRODUCTS_BY_TAGS;
+    console.log('dispatch type : ', dispatchType);
+    dispatch({ type: dispatchType, payload :  { data : selectedData, datatype : id}})
     setList(updatedList);
   };
+
   const handleRadioChange = (name, checked, id) => {
     setCurrentValue(name);
     console.log("Handle radio change", "name :", name, 'id', id);

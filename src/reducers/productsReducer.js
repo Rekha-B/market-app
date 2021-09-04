@@ -49,7 +49,7 @@ export const productsReducer = (state = initialState, action) => {
           ],
           price: state.price,
           totalCount: action.payload.products.length,
-          totalPage: Math.round(
+          totalPage: Math.ceil(
             action.payload.products.length / PRODUCT_PAGE_LIMIT
           ),
           tags: [
@@ -68,7 +68,7 @@ export const productsReducer = (state = initialState, action) => {
             action.payload.products,
             action.payload.activePage
           ),
-          totalPage: Math.round(action.payload.products.length / PRODUCT_PAGE_LIMIT),
+          totalPage: Math.ceil(action.payload.products.length / PRODUCT_PAGE_LIMIT),
           isLoading: false,
           types : updatedState.types,
           activePage: state.activePage,
@@ -82,7 +82,7 @@ export const productsReducer = (state = initialState, action) => {
       case productsActionTypes.GET_PRODUCTS_ERROR:  return { ...state, products: [] };
         
       case productsActionTypes.GET_FILTERED_PRODUCTS_BY_TYPE : 
-            let filteredProductsByType = getProductsFilteredByProductType(state, action);
+            let filteredProductsByType = getProductsFilteredByProductType(state, state.initialProducts, action);
             return {
               ...state,
               products : getProductsFilteredByPage(
@@ -90,7 +90,7 @@ export const productsReducer = (state = initialState, action) => {
                 state.activePage
               ),
               filteredProducts : filteredProductsByType,
-              totalPage : Math.round(filteredProductsByType.length / PRODUCT_PAGE_LIMIT),
+              totalPage : Math.ceil(filteredProductsByType.length / PRODUCT_PAGE_LIMIT),
               activePage : state.activePage
             }
 
@@ -107,7 +107,7 @@ export const productsReducer = (state = initialState, action) => {
       case productsActionTypes.GET_SORTED_PRODUCTS : 
           console.log('inside GET_SORTED_PRODUCTS', action, state);
           let sortType = action.payload.sortType;
-          let sortedProducts = sortProducts(state, action, sortType);
+          let sortedProducts = sortProducts(state, state.filteredProducts, sortType);
           console.log('sortedProducts : ', sortedProducts);
           return {
             ...state,
@@ -117,16 +117,26 @@ export const productsReducer = (state = initialState, action) => {
             filteredProducts: sortedProducts
           }
     
-      case productsActionTypes.GET_PRODUCTS_BY_OPTIONS : 
-           console.log('Inside GET_PRODUCTS_BY_OPTIONS', state, action);
-           let filteredProductsByCheckbox = getProductsByOptions(state, state.filteredProducts, action);
+      case productsActionTypes.GET_PRODUCTS_BY_BRANDS : 
+           console.log('Inside GET_PRODUCTS_BY_BRANDS', state, action);
+           let filteredProductsByBrands= getProductsByBrands(state, state.filteredProducts, action);
            return {
                   ...state,
-                  products : getProductsFilteredByPage(filteredProductsByCheckbox.filteredProds, state.activePage),
-                totalPage : Math.round(filteredProductsByCheckbox.filteredProds.length / PRODUCT_PAGE_LIMIT),
-                selectedBrands : action.payload.datatype === 'brands' && filteredProductsByCheckbox.selectedData,
-                selectedTags : action.payload.datatype === 'tags' && filteredProductsByCheckbox.selectedData
-         }           
+                  products : getProductsFilteredByPage(filteredProductsByBrands.filteredProds, state.activePage),
+                totalPage : Math.ceil(filteredProductsByBrands.filteredProds.length / PRODUCT_PAGE_LIMIT),
+                selectedBrands :  filteredProductsByBrands.selectedData 
+                
+         }      
+         
+         case productsActionTypes.GET_PRODUCTS_BY_TAGS : 
+         console.log('Inside GET_PRODUCTS_BY_TAGS', state, action);
+         let filteredProductsByTags = getProductsByTags(state, state.filteredProducts, action);
+         return {
+                ...state,
+                products : getProductsFilteredByPage(filteredProductsByTags.filteredProds, state.activePage),
+              totalPage : Math.ceil(filteredProductsByTags.filteredProds.length / PRODUCT_PAGE_LIMIT),
+              selectedTags :  filteredProductsByTags.selectedData 
+       } 
 
     default:
       return state;
@@ -140,26 +150,26 @@ export const productsReducer = (state = initialState, action) => {
  * @param {*} page
  * @returns
  */
-const sortProducts = (state, action, sortType) => {
-      console.log('Get products by price : ', state.filteredProducts, action, sortType, state);
-      let filteredProds = [...state.filteredProducts];
+const sortProducts = (state, products, sortType) => {
+      //console.log('Get products by price : ', products, action, sortType, state);
       if (sortType === "low") {
-        filteredProds.sort((a, b) => a.price - b.price);
+        products.sort((a, b) => a.price - b.price);
       } else if (sortType === "high") {
-        filteredProds.sort((a, b) => b.price - a.price);
+        products.sort((a, b) => b.price - a.price);
       } else if (sortType=== "old") {
-        filteredProds.sort((a, b) => new Date(a.added) - new Date(b.added));
+        products.sort((a, b) => new Date(a.added) - new Date(b.added));
       } else {
-        filteredProds.sort((a, b) => new Date(b.added) - new Date(a.added));
+        products.sort((a, b) => new Date(b.added) - new Date(a.added));
       }
       if(state.selectedBrands.length > 0) {
-        filteredProds = getProductsByOptions(state, filteredProds, action = { payload : { data : state.selectedBrands, datatype : 'brands'}}).filteredProds;
+        products = getProductsByBrands(state, products, { payload : { data : state.selectedBrands, datatype : 'brands'}}).filteredProds;
       }
       if(state.selectedTags.length > 0) {
-        filteredProds = getProductsByOptions(state, filteredProds, action = { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
+        products = getProductsByTags(state, products, { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
       }
-      console.log("fil : ",filteredProds);
-      return filteredProds;
+      console.log("fil : ",products);
+      // filteredProds = getProductsFilteredByProductType(state, filteredProds, { payload : {type : state.selectedType}});
+      return products;
 };
 /**
  * Filter Products by page
@@ -177,40 +187,55 @@ const getProductsFilteredByPage = (products, activePage) => {
   );
 };
 
-const getProductsFilteredByProductType = (state, action) => {
-  console.log('Filter Products By Type', state, action);
-  let productType = (action.payload && action.payload.type) ? action.payload.type : state.selectedType;
-  console.log('product type :', productType, state.initialProducts);
-  let filteredProductsByType = state.initialProducts.filter(product => product.itemType === productType);
-  console.log('Filtered Products By Type', filteredProductsByType);
-  return filteredProductsByType;
+const getProductsFilteredByProductType = (state, products, action) => {
+      console.log('Filter Products By Type', state, action);
+      let productType = (action.payload && action.payload.type) ? action.payload.type : state.selectedType;
+      console.log('product type :', productType, products);
+      let filteredProductsByType = products.filter(product => product.itemType === productType);
+      console.log('Filtered Products By Type', filteredProductsByType);
+      if(state.selectedBrands.length > 0) {
+        filteredProductsByType = getProductsByBrands(state, filteredProductsByType, action = { payload : { data : state.selectedBrands, datatype : 'brands'}}).filteredProds;
+      }
+      if(state.selectedTags.length > 0) {
+        filteredProductsByType = getProductsByTags(state, filteredProductsByType, action = { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
+      }
+      filteredProductsByType = sortProducts(state, filteredProductsByType, state.selectedSortType);
+      return filteredProductsByType;
 }
-const getProductsByOptions = (state, products, action) => {
+
+const getProductsByBrands = (state, products, action) => {
+    let filteredProds = [];
+    let selectedData = action.payload.data;
+    console.log("selectedData : ", selectedData);
+    if (selectedData.length > 0) {
+      filteredProds = products.filter((product) => selectedData.includes(product.manufacturer));
+      console.log("filtered prods : ", filteredProds);
+    } else {
+      filteredProds = products;
+    }
+    if( state.selectedTags.length > 0){
+      filteredProds = getProductsByTags(state, filteredProds, action = { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
+    }
+   return {
+      filteredProds,
+      selectedData
+    }
+};
+
+const getProductsByTags = (state, products, action) => {
+  console.log('inside tags', state.selectedBrands);
   let filteredProds = [];
   let selectedData = action.payload.data;
-  console.log("selectedData : ", selectedData);
-  if (selectedData.length > 0) {
-    filteredProds = products.filter((product) => {
-      if (action.payload.datatype === "brands") {
-        return selectedData.includes(product.manufacturer);
-      } else {
-        return selectedData.some(r => product.tags.includes(r));
-      }
-    });
+ if (selectedData.length > 0) {
+    filteredProds = products.filter((product) => selectedData.some(r => product.tags.includes(r)));
+    filteredProds = state.selectedBrands.length > 0 ? filteredProds.filter((product) => state.selectedBrands.includes(product.manufacturer)) : filteredProds;
     console.log("filtered prods : ", filteredProds);
   } else {
     filteredProds = products;
   }
-
-  if(action.payload.datatype === 'brands' && state.selectedTags.length > 0) {
-     filteredProds = getProductsByOptions(state, filteredProds, action = { payload : { data : state.selectedTags, datatype : 'tags'}}).filteredProds;
-  }
-  else if(action.payload.datatype === 'tags' && state.selectedBrands.length > 0){
-    filteredProds = getProductsByOptions(state, filteredProds, action = { payload : { data : state.selectedBrands, datatype : 'brands'}}).filteredProds;
-  }
-  return {
+ 
+ return {
     filteredProds,
     selectedData
   }
 };
-

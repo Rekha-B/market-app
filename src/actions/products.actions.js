@@ -10,7 +10,9 @@ export const productsActionTypes = {
   GET_PRODUCTS_FILTERED_ERROR: 'GET_PRODUCTS_FILTERED_ERROR',
   GET_PRODUCTS_BY_OPTIONS : 'GET_PRODUCTS_BY_OPTIONS',
   GET_SORTED_PRODUCTS : 'GET_SORTED_PRODUCTS',
-  GET_FILTERED_PRODUCTS_BY_PAGE : 'GET_FILTERED_PRODUCTS_BY_PAGE'
+  GET_FILTERED_PRODUCTS_BY_PAGE : 'GET_FILTERED_PRODUCTS_BY_PAGE',
+  GET_PRODUCTS_BY_BRANDS : 'GET_PRODUCTS_BY_BRANDS',
+  GET_PRODUCTS_BY_TAGS : 'GET_PRODUCTS_BY_TAGS'
 };
 
 export const companyActionTypes = {
@@ -30,9 +32,7 @@ export const getCompanies = () => async (dispatch) => {
 
 
 export const getProducts = (page) => async (dispatch) => {
-
   const res = await getApiProducts();
-  console.log("Product actions called", page);
   if (res) {
     dispatch({
       type: productsActionTypes.GET_PRODUCTS_SUCCESS,
