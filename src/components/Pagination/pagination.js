@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useCallback } from "react";
 import classNames from "classnames";
 import "./pagination.scss";
 import prev from "../../assets/images/prev.svg";
 import next from "../../assets/images/next.svg";
-import { getProducts, productsActionTypes } from "../../actions/products.actions";
-import { PAGINATION_SHOW_PAGES } from "../../constants";
+import {  productsActionTypes } from "../../actions/products.actions";
+import { PAGINATION_SHOW_PAGES, PAGINATION_MIN_PAGE_LIMIT } from "../../constants";
 
 export const Pagination = () => {
   const { totalPage, activePage, selectedType } = useSelector((state) => state.productsReducer);
@@ -58,9 +57,8 @@ export const Pagination = () => {
    * Render Page Numbers in pagination
    */
   const renderPageNumbers = () => {
-      let pageNumbers = [];
-    if (totalPage > 0) {
-      for (let index = 1; index <= PAGINATION_SHOW_PAGES; index++) {
+      const pageNumbers = [];
+    for (let index = 1; index <= PAGINATION_SHOW_PAGES; index++) {
         pageNumbers.push(renderPageNumber(index));
       }
       pageNumbers.push(<span className="dots">...</span>);
@@ -73,22 +71,26 @@ export const Pagination = () => {
       }
       return pageNumbers;
     }
-    else {
-      return null
-    }
-  };
+
+  const renderPages = () => {
+     const pageNumbers = [];
+     for(let index = 1;index <= totalPage; index++){
+      pageNumbers.push(renderPageNumber(index));
+     }
+     return pageNumbers;
+  }
 
   return (
     <div className="pagination">
-      <a className="prev" onClick={handlePrevClick}>
+     {totalPage !== 0 && <a className="prev" onClick={handlePrevClick}>
         <img src={prev} alt="prev" />
         <span>Prev</span>
-      </a>
-      {renderPageNumbers()}
-      <a className="next" onClick={handleNextClick}>
+      </a>}
+      { totalPage > PAGINATION_MIN_PAGE_LIMIT ? renderPageNumbers() : renderPages() }
+      { totalPage !== 0 && <a className="next" onClick={handleNextClick}>
         <span>Next</span>
         <img src={next} alt="next" />
-      </a>
+      </a>}
     </div>
   );
 };

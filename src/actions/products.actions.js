@@ -1,4 +1,4 @@
-import { getApiProducts, getApiProductsFiltered, getApiCompanies } from "../apis/index";
+import { getApiProducts, getApiCompanies } from "../apis/index";
 
 export const productsActionTypes = {
   GET_PRODUCTS_SUCCESS: "GET_PRODUCTS_SUCCESS",

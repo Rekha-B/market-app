@@ -7,7 +7,7 @@ import { productsActionTypes } from "../../actions/products.actions";
 import { Pagination } from '../Pagination/pagination';
 
 const ProductsList = () => {
-  const { products, types, selectedType, activePage, totalPage } = useSelector((state) => state.productsReducer);
+  const { products, types, selectedType, totalPage } = useSelector((state) => state.productsReducer);
   console.log("inside product list:", products, types, selectedType, totalPage);
   const [selectedProductType, setSelectedProductType] = useState(selectedType);
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ const ProductsList = () => {
     console.log('selected Type : ', type);
     setSelectedProductType(type);
     dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_TYPE, payload : { type : type}})
-    //dispatch(getProducts(activePage, type));
   }
   
   return (
@@ -29,9 +28,9 @@ const ProductsList = () => {
        <ProductTypes  types={types} selectedType={selectedProductType} handleSelectedType={handleSelectedType}/>
        <div id="products-list">
        {
-            products.map(product => (
+            products.length > 0  ? products.map(product => (
                <ProductItem product={product} />
-            ))
+            )) : <span>No Products</span>
         }
       </div>
       <Pagination />

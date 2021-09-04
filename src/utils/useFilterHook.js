@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 const transformData = (data, type, id, selectedSortType) => {
   console.log(data, selectedSortType);
   if (type === 'checkbox' && id === 'brands') {
-    return data.map((value, index) => ({ name: value.name, slug : value.slug,  id }));
+    return data.map((value) => ({ name: value.name, slug : value.slug,  id }));
   }
   if (type === 'radio' && id === 'price') {
-    return data.map((value, index) => ({ name: value.name, id : value.id , checked : value.id === selectedSortType}))
+    return data.map((value) => ({ name: value.name, id : value.id })) 
   }
-  return data.map((value, index) => ({ name: value, value , id}));
+  return data.map((value) => ({ name: value, value , id}));
 };
 
 export const useFilterHook = (data, type, id) => {
@@ -38,7 +38,8 @@ export const useFilterHook = (data, type, id) => {
       return item;
     });
     console.log("In checkbox ", updatedList,id);
-    dispatch({ type: productsActionTypes.GET_PRODUCTS_BY_OPTIONS, payload :  { data : updatedList, datatype : id}})
+    let selectedData = updatedList.filter((data) => data.checked === true).map((item) => (id === "brands" ? item.slug : item.name));
+    dispatch({ type: productsActionTypes.GET_PRODUCTS_BY_OPTIONS, payload :  { data : selectedData, datatype : id}})
     setList(updatedList);
   };
   const handleRadioChange = (name, checked, id) => {
@@ -55,7 +56,7 @@ export const useFilterHook = (data, type, id) => {
   const handleChange = (event) => {
     console.log(event.target);
    const { name, type, checked, id } = event.target;
-   console.log(name, type, checked, id);
+   console.log("handle change :", name, type, checked, id);
     handlers[type](name, checked, id);
   };
 

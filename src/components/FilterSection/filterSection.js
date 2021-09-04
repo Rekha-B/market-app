@@ -1,20 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import "./filterSection.scss";
-import { useDispatch, useSelector } from "react-redux";
 import InputBox from "../../commons/InputBox/inputBox";
 import { useFilterHook } from "../../utils/useFilterHook";
-import { productsActionTypes } from "../../actions/products.actions";
+import { useSelector } from "react-redux";
 
 const FilterSection = ({ title, data, type, placeholder, id }) => {
-  const { list, currentValue, handleChange, searchValue, handleSearchChange } =
+  const { list, handleChange, searchValue, handleSearchChange } =
     useFilterHook(data, type, id);
-  const dispatch = useDispatch();
-  const { totalPage } = useSelector((state) => state.productsReducer);
-  
-  useEffect(() => {
-     dispatch({ type : productsActionTypes.GET_SORTED_PRODUCTS})
-  }, [totalPage]);
-
   const RadioGroup = () => {
     return (
       <ol>
@@ -49,7 +41,7 @@ const FilterSection = ({ title, data, type, placeholder, id }) => {
           placeholder={placeholder}
         />
         <ol style={{ marginTop: "19px", height: "140px", overflow: "auto" }} id="checkbox">
-          {list.map(({ name, value, checked, slug, id }) => (
+          {list.map(({ name, checked, id }) => (
               <li key={name}>
                 <label>
                   {name}

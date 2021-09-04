@@ -1,5 +1,3 @@
-import { COMPANIES_URL } from "../config";
-
 export const cartActionTypes = {
     ADD_CART : 'ADD_CART',
     REMOVE_CART : 'REMOVE_CART'
