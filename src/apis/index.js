@@ -1,4 +1,4 @@
-import { JSON_API } from "../config";
+import { JSON_API } from "../constants";
 import axios from "axios";
 
 export const getApiProducts = async () => {
