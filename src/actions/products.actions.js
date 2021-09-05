@@ -8,7 +8,6 @@ export const productsActionTypes = {
   GET_PRODUCTS_BY_PAGE: "GET_PRODUCTS_BY_PAGE",
   GET_PRODUCTS_FILTERED_SUCCESS: 'GET_PRODUCTS_FILTERED_SUCCESS',
   GET_PRODUCTS_FILTERED_ERROR: 'GET_PRODUCTS_FILTERED_ERROR',
-  GET_PRODUCTS_BY_OPTIONS : 'GET_PRODUCTS_BY_OPTIONS',
   GET_SORTED_PRODUCTS : 'GET_SORTED_PRODUCTS',
   GET_FILTERED_PRODUCTS_BY_PAGE : 'GET_FILTERED_PRODUCTS_BY_PAGE',
   GET_PRODUCTS_BY_BRANDS : 'GET_PRODUCTS_BY_BRANDS',
@@ -21,6 +20,9 @@ export const companyActionTypes = {
 }
 
 
+/***
+ * Action to retrieve brands
+ */
 export const getCompanies = () => async (dispatch) => {
   const res = await getApiCompanies();
   if (res) {
@@ -30,7 +32,9 @@ export const getCompanies = () => async (dispatch) => {
   }
 };
 
-
+/***
+ * Action to retrieve products
+ */
 export const getProducts = (page) => async (dispatch) => {
   const res = await getApiProducts();
   if (res) {

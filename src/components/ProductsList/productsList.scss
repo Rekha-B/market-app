@@ -21,7 +21,7 @@ section#products {
     overflow: hidden;
     flex-wrap: wrap;
     width: 608px;
-    background: #ffffff;
+    background: $white_color;
     box-shadow: '0px 4px 24px rgb(93 62 188 / 4%)';
     border-radius: 2px;
     padding-bottom:20px;
@@ -30,7 +30,7 @@ section#products {
       padding: 50px;
       width: 100%;
       text-align: center;
-      font-size: 20px;
+      font-size: $font_size_20;
       color: $blue_color;
       font-weight: bold;
     }

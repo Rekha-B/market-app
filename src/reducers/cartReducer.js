@@ -4,8 +4,10 @@ const initialState = {
   items: [],
 };
 export const cartReducer = (state = initialState, action) => {
+  
   const productIndex = state.items.findIndex(item => item.id === action.payload.id);
   const newList = [...state.items];
+
   switch (action.type) {
     case cartActionTypes.ADD_CART : 
     if(productIndex > -1) {
@@ -20,9 +22,11 @@ export const cartReducer = (state = initialState, action) => {
     });
   }
   return { ...state, items : newList } 
+
   case cartActionTypes.REMOVE_CART : newList[productIndex] = { ...newList[productIndex], quantity : newList[productIndex].quantity - 1};
     return { ...state, items : newList } 
-    default:
+
+  default:
       return state;
   }
 };

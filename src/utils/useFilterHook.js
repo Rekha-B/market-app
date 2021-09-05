@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { productsActionTypes } from '../actions/products.actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 const transformData = (data, type, id) => {
   if (type === 'checkbox' && id === 'brands') {
     return data.map((value) => ({ name: value.name, slug : value.slug,  id }));
@@ -11,6 +12,13 @@ const transformData = (data, type, id) => {
   return data.map((value) => ({ name: value, value , id}));
 };
 
+/**
+ *  Filter hook
+ * @param {*} data 
+ * @param {*} type 
+ * @param {*} id 
+ * @returns 
+ */
 export const useFilterHook = (data, type, id) => {
   const {  selectedSortType } = useSelector((state) => state.productsReducer);
   const dispatch = useDispatch();
@@ -27,6 +35,12 @@ export const useFilterHook = (data, type, id) => {
     setList(updatedList);
   };
 
+  /**
+   * Handle checkbox change event
+   * @param {*} name 
+   * @param {*} checked 
+   * @param {*} id 
+   */
   const handLeCheckboxChange = (name, checked, id) => {
     const updatedList = list.map(item => {
       if (item.name === name) {
@@ -40,6 +54,12 @@ export const useFilterHook = (data, type, id) => {
     setList(updatedList);
   };
 
+  /**
+   * Handle radio change event
+   * @param {*} name 
+   * @param {*} checked 
+   * @param {*} id 
+   */
   const handleRadioChange = (name, checked, id) => {
     setCurrentValue(name);
     dispatch({ type : productsActionTypes.GET_SORTED_PRODUCTS, payload : { sortType : id}})

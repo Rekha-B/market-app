@@ -136,7 +136,7 @@ export const productsReducer = (state = initialState, action) => {
  * @param {*} products
  * @param {*} action
  * @param {*} page
- * @returns
+ * @returns Array of Objects with products data
  */
 const sortProducts = (state, products, sortType) => {
       if (sortType === "low") {
@@ -171,6 +171,13 @@ const getProductsFilteredByPage = (products, activePage) => {
   );
 };
 
+/**
+ * Filter Products By Product Type
+ * @param {*} state 
+ * @param {*} products 
+ * @param {*} action 
+ * @returns Array of Objects with products data
+ */
 const getProductsFilteredByProductType = (state, products, action) => {
       let productType = (action.payload && action.payload.type) ? action.payload.type : state.selectedType;
       let filteredProductsByType = products.filter(product => product.itemType === productType);
@@ -184,6 +191,13 @@ const getProductsFilteredByProductType = (state, products, action) => {
       return filteredProductsByType;
 }
 
+/**
+ * Filter Products By Brands
+ * @param {*} state 
+ * @param {*} products 
+ * @param {*} action 
+ * @returns Array of Objects with products data
+ */
 const getProductsByBrands = (state, products, action) => {
     let filteredProds = [];
     let selectedData = action.payload.data;
@@ -201,6 +215,13 @@ const getProductsByBrands = (state, products, action) => {
     }
 };
 
+/**
+ * Filter Products By Tags
+ * @param {*} state 
+ * @param {*} products 
+ * @param {*} action 
+ * @returns Array of Objects with products data
+ */
 const getProductsByTags = (state, products, action) => {
   let filteredProds = [];
   let selectedData = action.payload.data;
