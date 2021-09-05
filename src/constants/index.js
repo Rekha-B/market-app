@@ -3,3 +3,4 @@ export const PRODUCT_PAGE_NUMBER = 1;
 export const CURRENCY_SYMBOL = '₺';
 export const PAGINATION_SHOW_PAGES = 4;
 export const PAGINATION_MIN_PAGE_LIMIT = 8;
+export const JSON_API="https://products-client-app.herokuapp.com/api";
