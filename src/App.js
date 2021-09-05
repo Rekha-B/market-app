@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getProducts(PRODUCT_PAGE_NUMBER));
     dispatch(getCompanies());
-  },[]);
+  },[dispatch]);
 
   return (
     <div className="App">
