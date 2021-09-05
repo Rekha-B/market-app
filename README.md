@@ -10,3 +10,6 @@ A React project for Market with JSON Server
 - **Javascript**
 - **Sass**
 - **JSON Server**
+
+## Deployment
+[Market App](https://getir-market-client.herokuapp.com/)
