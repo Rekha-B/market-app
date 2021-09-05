@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import "./dashboard.scss";
-import FilterPanel from "../FilterPanel/filterPanel.js";
+import FilterPanel from "../FilterPanel/filterPanel";
 import ProductsList from "../ProductsList/productsList";
 import Cart from '../Cart/cart';
 
