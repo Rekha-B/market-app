@@ -12,4 +12,4 @@ A React project for Market with JSON Server
 - **JSON Server**
 
 ## Deployment
-[Market App](https://getir-market-client.herokuapp.com/)
+[Market App](https://products-client-app.herokuapp.com)
