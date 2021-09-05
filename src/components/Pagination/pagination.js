@@ -40,14 +40,14 @@ export const Pagination = () => {
   const renderPageNumber = (index) => {
     const classname = classNames({ active: Number(activePage) === index });
     return (
-      <a
+      <button
         onClick={handlePageNumberClick}
         id={index}
         className={`${classname} flex`}
         key={`page_${index}`}
       >
         {index}
-      </a>
+      </button>
     );
   };
 
