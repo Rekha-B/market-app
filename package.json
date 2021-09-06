@@ -23,6 +23,7 @@
   "devDependencies": {
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "husky": "^7.0.2",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0"
@@ -30,7 +31,15 @@
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test": "react-scripts test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "...": "...."
+    }
   },
   "eslintConfig": {
     "extends": [

@@ -21,7 +21,7 @@ code {
   font-family: 'OpenSans-SemiBold';
   font-weight: 700;
   src: local('OpenSans-SemiBold'),
-    url(../src/assets/fonts/Open_Sans/OpenSans-Bold.ttf) format('opentype');
+    url(../src/assets/fonts/Open_Sans/OpenSans-SemiBold.ttf) format('opentype');
 }
 @font-face {
   font-display: block;
