@@ -20,9 +20,13 @@ const ProductsList = () => {
     dispatch({ type : productsActionTypes.GET_FILTERED_PRODUCTS_BY_TYPE, payload : { type : type}})
   }
   
+  const onHandleClick = () => {
+    alert("handle click");
+    Andorid.showToast("Hello React");
+  }
   return (
     <section id="products">
-       <h1>Products</h1>
+       <h1>Products</h1><button onClick={() => onHandleClick()}>Click</button>
        <ProductTypes  types={types} selectedType={selectedProductType} handleSelectedType={handleSelectedType}/>
        <div id="products-list">
        {
